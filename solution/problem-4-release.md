@@ -57,8 +57,9 @@ stages:
                 - download: current
                   artifact: release-manifest
                 - script: |
-                    # PSEUDOCODE: read the recorded digest; run a backward-compatible
-                    # expand migration; deploy API using image@sha256:digest;
+                    # PSEUDOCODE: read the recorded digest; launch a one-off
+                    # backward-compatible migration Job in GKE; deploy API using
+                    # image@sha256:digest;
                     # run smoke checks; persist the deployed digest and pipeline run
                     # in a release record (and as a Kubernetes annotation).
                     ./ci/deploy-production.sh \
@@ -66,7 +67,7 @@ stages:
                   displayName: Migrate, deploy exact digest, verify and record
 ```
 
-`release-manifest.txt` should contain at least the full image reference (`...@sha256:...`), source commit, pipeline run/build ID, and migration version. The push step must resolve the digest returned by Artifact Registry after upload; a commit/build tag is a convenient lookup tag, not a substitute for deploying by digest. Do not overwrite or reuse release tags. Keep the prior production digest and release record so the on-call engineer can identify the exact rollback candidate.
+`release-manifest.txt` should contain at least the full image reference (`...@sha256:...`), source commit, pipeline run/build ID, and migration version. The push step must resolve the digest returned by Artifact Registry after upload; a commit/build tag is a convenient lookup tag, not a substitute for deploying by digest. Enable immutable tags where supported and never overwrite or reuse release tags. Keep the prior production digest and release record so the on-call engineer can identify the exact rollback candidate.
 
 The deployment sequence assumes an **expand/contract** database strategy: first make additive, backward-compatible schema changes; deploy code that works with both old and new schema; later, in a separately authorized release after the rollback window, remove obsolete schema. For example, add a nullable column before code starts using it; backfill safely; only later remove an old column once no deployed version needs it. Make migrations observable, bounded, and safe to retry where possible. Do not combine irreversible destructive schema changes with a release that might need application rollback.
 

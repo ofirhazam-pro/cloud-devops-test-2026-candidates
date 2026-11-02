@@ -21,13 +21,12 @@ sudo docker system df -v
 sudo docker ps -a --size
 sudo docker image ls --digests
 sudo docker volume ls
-sudo docker builder du
 sudo journalctl --disk-usage
 sudo lsof +L1
 ps -ef | grep -E '[A]gent.Listener|[A]gent.Worker'
 ```
 
-`df -i` checks inode exhaustion, while `lsof +L1` can reveal deleted-but-still-open files that continue consuming blocks; after identifying the owning process, release the space only through a controlled service restart. Docker's reports distinguish images, containers, volumes, and build cache. If Docker commands fail because the daemon is unavailable, inspect the daemon and logs rather than deleting `/var/lib/docker` directly:
+`df -i` checks inode exhaustion, while `lsof +L1` can reveal deleted-but-still-open files that continue consuming blocks; after identifying the owning process, release the space only through a controlled service restart. Docker's reports distinguish images, containers, volumes, and build cache. If Buildx is in use, `sudo docker buildx du` can inspect its cache. If Docker commands fail because the daemon is unavailable, inspect the daemon and logs rather than deleting `/var/lib/docker` directly:
 
 ```bash
 sudo systemctl status docker
