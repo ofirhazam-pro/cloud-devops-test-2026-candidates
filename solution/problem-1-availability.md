@@ -26,4 +26,11 @@ In a non-production cluster, test slow startup, readiness failure, and an unresp
 
 ## Zone outage — separate infrastructure change
 
-**Zone outage (infrastructure, separate from rollout):** losing the GKE node's zone removes the current cluster's compute; losing Cloud SQL's zone removes its database. Use a regional GKE Standard cluster with workers across zones and enough surviving capacity for all tiers. Enable Cloud SQL regional HA with primary and standby in separate zones, and verify client reconnect/retry behavior. Expect brief rescheduling/failover interruption; this does not cover a regional outage or replace backups. See the [corrected topology](architecture.md).
+This is an infrastructure risk, separate from safer deployments and node maintenance:
+
+- **Current impact:** both GKE nodes are in one zone, so losing that zone removes all application compute. Cloud SQL is also single-zone (the assignment does not specify whether it is the same zone); losing its zone makes the database unavailable. More replicas in the existing cluster cannot survive loss of its only zone.
+- **GKE change:** use a regional GKE Standard cluster with worker nodes across zones. Spread frontend, API, and worker pods across zones and nodes, and keep enough node capacity in the surviving zones to run all tiers after one zone is lost.
+- **Database change:** enable Cloud SQL regional high availability, with primary and standby in separate zones. Verify the application reconnects and retries safely after automatic failover.
+- **Expected behavior and limit:** pods may need to be rescheduled and Cloud SQL must fail over, so brief interruption is possible. This targets a single-zone outage, not a regional outage, and HA does not replace backups or recovery testing.
+
+See the [corrected topology](architecture.md).
