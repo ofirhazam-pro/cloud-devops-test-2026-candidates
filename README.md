@@ -15,7 +15,7 @@ A practical assignment: improve a small existing GCP service and explain how to 
 - The existing VPN, HTTPS load balancer, private GKE API connectivity, workload identity, attached agent service account, and Secret Manager access continue to work as stated in the assignment. No development environment is added.
 - The availability proposal targets one zone outage, not a regional outage. Three-zone placement requires eligible nodes and capacity in all three zones; size resources and recovery capacity using actual workload/data.
 - Regional GKE capacity, Cloud SQL regional HA, PITR, and seven-day Cloud Storage soft delete improve availability/recovery but add cost and do not replace tested backups or incident drills.
-- **Validation:** Kubernetes manifest correctness was validated by me. Markdown links and whitespace were checked locally. No cloud resources, live pipeline, or recovery drill were run; those remain proposed.
+- **Validation performed:** I validated the Kubernetes manifest for correctness and checked Markdown links and whitespace locally. This was not a live GKE deployment. No cloud recovery drill or Azure DevOps pipeline test was run; those remain proposed.
 - **Time spent:** 6 hours.
 - **AI disclosure:** AI tools, including Copilot, were used to assist with researching technical concepts, reviewing the proposed architecture, and improving the clarity of the documentation. The final solution was reviewed and validated by me.
 - No secrets or real customer data are included.
