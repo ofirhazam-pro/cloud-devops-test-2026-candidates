@@ -46,6 +46,7 @@ stages:
   - stage: ValidationDeploy
     dependsOn: Validate
     condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/main'))
+    displayName: Deploy to validation environment and run smoke tests
     jobs:
       - deployment: DeployValidation
         environment: validation
@@ -56,11 +57,12 @@ stages:
                 - download: current
                   artifact: release-manifest
                 - script: |
-                    # PSEUDOCODE: deploy recorded image@sha256:digest to validation;
-                    # run smoke checks and fail the stage on errors.
+                    # PSEUDOCODE: deploy the exact recorded image digest to the
+                    # non-production validation environment. Run basic API checks;
+                    # return a nonzero exit code if deploy or any check fails.
                     ./ci/deploy-and-smoke-test.sh \
                       "$(Pipeline.Workspace)/release-manifest/release-manifest.txt"
-                  displayName: Deploy exact digest and smoke test
+                  displayName: Deploy exact image and verify API health
 
   - stage: Production
     dependsOn: ValidationDeploy
