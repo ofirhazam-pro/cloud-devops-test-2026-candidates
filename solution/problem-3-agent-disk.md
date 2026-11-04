@@ -6,6 +6,14 @@ Root is full (99/100 GB); Docker uses 76 GB and the agent workspace 12 GB. The s
 
 ## Investigate before deleting
 
+### Investigation roadmap
+
+1. Confirm disk space, inode use, and mounts.
+2. Find the largest directories and files.
+3. Break down Docker usage and check agent jobs and logs.
+4. Drain the agent and confirm what can safely be rebuilt or downloaded.
+5. Choose targeted cleanup, then recheck available space.
+
 Run these read-only checks to locate disk/inode usage and identify large consumers:
 
 ```bash
