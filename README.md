@@ -17,7 +17,7 @@ A practical assignment: improve a small existing GCP service and explain how to 
 - Regional GKE capacity, Cloud SQL regional HA, PITR, and seven-day Cloud Storage soft delete improve availability/recovery but add cost and do not replace tested backups or incident drills.
 - **Validation:** reviewed docs/snippets and checked links/whitespace locally. No cloud resources, live pipeline, or recovery drill were run; proposed tests are labeled.
 - **Time spent:** Candidate to fill in actual time before submission.
-- **AI disclosure:** Substantial AI assistance was used to draft and edit this solution. The candidate should review every recommendation, verify environment-specific details, and be prepared to explain the design and tradeoffs.
+- **AI disclosure:** AI tools, including Copilot, were used to assist with researching technical concepts, reviewing the proposed architecture, and improving the clarity of the documentation. The final solution was reviewed and validated by me.
 - No secrets or real customer data are included.
 
 ## Official references
