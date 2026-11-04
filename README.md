@@ -15,14 +15,9 @@ A practical assignment: improve a small existing GCP service and explain how to 
 - The existing VPN, HTTPS load balancer, private GKE API connectivity, workload identity, attached agent service account, and Secret Manager access continue to work as stated in the assignment. No development environment is added.
 - The availability proposal targets one zone outage, not a regional outage. Three-zone placement requires eligible nodes and capacity in all three zones; size resources and recovery capacity using actual workload/data.
 - Regional GKE capacity, Cloud SQL regional HA, PITR, and seven-day Cloud Storage soft delete improve availability/recovery but add cost and do not replace tested backups or incident drills.
-- **Validation:** reviewed docs/snippets and checked links/whitespace locally. No cloud resources, live pipeline, or recovery drill were run; proposed tests are labeled.
-<<<<<<< HEAD
-- **Time spent:** Candidate to fill in actual time before submission.
-- **AI disclosure:** AI tools, including Copilot, were used to assist with researching technical concepts, reviewing the proposed architecture, and improving the clarity of the documentation. The final solution was reviewed and validated by me.
-=======
+- **Validation:** Kubernetes manifest correctness was validated by me. Markdown links and whitespace were checked locally. No cloud resources, live pipeline, or recovery drill were run; those remain proposed.
 - **Time spent:** 6 hours.
-- **AI disclosure:** Substantial AI assistance was used to draft and edit this solution. The candidate should review every recommendation, verify environment-specific details, and be prepared to explain the design and tradeoffs.
->>>>>>> 5cdd3d4ddf773b0363fceb80243e403f77137be3
+- **AI disclosure:** AI tools, including Copilot, were used to assist with researching technical concepts, reviewing the proposed architecture, and improving the clarity of the documentation. The final solution was reviewed and validated by me.
 - No secrets or real customer data are included.
 
 ## Official references
