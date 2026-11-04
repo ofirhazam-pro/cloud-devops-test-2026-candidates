@@ -16,7 +16,7 @@ A practical assignment: improve a small existing GCP service and explain how to 
 - The availability proposal targets one zone outage, not a regional outage. Three-zone placement requires eligible nodes and capacity in all three zones; size resources and recovery capacity using actual workload/data.
 - Regional GKE capacity, Cloud SQL regional HA, PITR, and seven-day Cloud Storage soft delete improve availability/recovery but add cost and do not replace tested backups or incident drills.
 - **Validation:** reviewed docs/snippets and checked links/whitespace locally. No cloud resources, live pipeline, or recovery drill were run; proposed tests are labeled.
-- **Time spent:** Candidate to fill in actual time before submission.
+- **Time spent:** 6 hours.
 - **AI disclosure:** Substantial AI assistance was used to draft and edit this solution. The candidate should review every recommendation, verify environment-specific details, and be prepared to explain the design and tradeoffs.
 - No secrets or real customer data are included.
 
