@@ -6,7 +6,12 @@ The pipeline publishes every build as `latest`, so the deployment cannot reliabl
 
 ## Proposed Azure DevOps Server flow
 
-Keep Azure DevOps Server for Git and CI/CD. PR validation runs lint, tests, migration checks and a container build. Build once; publish a commit/run-tagged image to Artifact Registry and promote its recorded digest through validation and production.
+Keep Azure DevOps Server for Git and CI/CD. Proposed release flow:
+
+- **Pull request:** run lint, tests, and migration-compatibility checks through Azure Repos Build validation.
+- **Build and publish:** build once; on merge to `main`, push the tested image to Artifact Registry with a commit/build tag and record its digest.
+- **Validate:** deploy that exact digest to the non-production validation environment and run smoke tests.
+- **Approve and release:** require an authorized production approval, then deploy the same digest and record the deployed version.
 
 Illustrative Azure Pipelines YAML; scripts are explicitly pseudocode. For Azure Repos, configure a **Build validation branch policy** on `main` for PR CI; do not rely on YAML `pr:` for Azure Repos. Configure a production environment approval/check and restrict approvers. Azure DevOps Server 2022 supports deployment approvals; verify configuration in the installed version.
 
